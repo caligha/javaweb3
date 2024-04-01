@@ -41,9 +41,9 @@ pipeline {
     }
 
     post {
-        'success' {
-            // Add post-build actions here
-            // Example: Send notifications, archive artifacts, etc.
+        success {
+            echo 'Congratulations! The pipeline has completed successfully.'
+            // You can add additional steps or actions here if needed
         }
     }
 }

@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from your GitHub repository
-                git 'https://github.com/caligha/javaweb3.git'
+                git branch: 'master' 'https://github.com/caligha/javaweb3.git'
             }
         }
 
@@ -32,6 +32,7 @@ pipeline {
             steps {
                 // Move the WAR file to the Tomcat webapps directory
                 sh 'mv target/*.war ~/apache*/Webapps./'
+
 
                 // Restart Tomcat to deploy the application
                 sh 'ssh user@172.31.14.74 /path/to/tomcat/bin/shutdown.sh'

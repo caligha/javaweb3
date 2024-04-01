@@ -41,7 +41,7 @@ pipeline {
     }
 
     post {
-        success {
+        'success' {
             // Add post-build actions here
             // Example: Send notifications, archive artifacts, etc.
         }

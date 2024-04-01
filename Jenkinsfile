@@ -7,7 +7,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from your GitHub repository
-                git branch: 'master' 'https://github.com/caligha/javaweb3.git'
+               git branch: 'master', url: 'https://github.com/caligha/javaweb3.git'
+
             }
         }
 

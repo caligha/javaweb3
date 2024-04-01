@@ -31,11 +31,11 @@ pipeline {
             }
             steps {
                 // Move the WAR file to the Tomcat webapps directory
-                sh 'mv target/webapp.war /path/to/tomcat/webapps'
-                
+                sh 'mv target/webapp.war ~/apache*/webapps/'
+
                 // Restart Tomcat to deploy the application
-                sh 'ssh user@tomcat-server /path/to/tomcat/bin/shutdown.sh'
-                sh 'ssh user@tomcat-server /path/to/tomcat/bin/startup.sh'
+                sh 'ssh user@172.31.14.74 /path/to/tomcat/bin/shutdown.sh'
+                sh 'ssh user@172.31.14.74 /path/to/tomcat/bin/startup.sh'
             }
         }
     }

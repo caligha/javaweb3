@@ -32,7 +32,7 @@ pipeline {
             }
             steps {
                 // Move the WAR file to the Tomcat webapps directory
-                sh 'mv target/*.war ~/apache*/Webapps./'
+                sh 'mv target/.war ~/apache*/Webapps./'
 
 
                 // Restart Tomcat to deploy the application

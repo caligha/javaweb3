@@ -1,7 +1,4 @@
 pipeline {
-    environment {
-        warFile = 'target/WebAppCal-0.0.6.war'
-    }
     agent {
         label 'jenkins-slave1' // Label matching the Jenkins slave node for build
     }
@@ -29,12 +26,14 @@ pipeline {
                 label 'jenkins-slave2' // Label matching the Jenkins slave node for Tomcat deployment
             }
             steps {
-                // Move the WAR file to the Tomcat webapps directory
-                sh "scp $warFile centos@172.31.14.74:/home/centos/webapps/"
+                sshagent(['jenkins-slave2']) {
+                    // Move the WAR file to the Tomcat webapps directory
+                    sh "scp webapp/target/webapp.war centos@172.31.14.74:/home/centos/webapps/"
 
-                // Restart Tomcat to deploy the application
-                sh 'ssh user@172.31.14.74 /path/to/tomcat/bin/shutdown.sh'
-                sh 'ssh user@172.31.14.74 /path/to/tomcat/bin/startup.sh'
+                    // Restart Tomcat to deploy the application
+                    sh 'ssh user@172.31.14.74 /path/to/tomcat/bin/shutdown.sh || true' // Shutdown Tomcat, ignore errors if it's already stopped
+                    sh 'ssh user@172.31.14.74 /path/to/tomcat/bin/startup.sh' // Start Tomcat
+                }
             }
         }
     }
@@ -45,4 +44,3 @@ pipeline {
         }
     }
 }
-

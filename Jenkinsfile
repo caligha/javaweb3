@@ -25,10 +25,10 @@ pipeline {
                         // Add a sleep command to wait for the WAR file to be generated
                         sh 'sleep 30'
 
-                        // Print the contents of the parent directory of the target directory
-                        sh 'ls -l ${WORKSPACE}'
+                        // Print the contents of the target directory
+                        sh 'ls -l ${WORKSPACE}/target'
 
-                        def warFilePath = "${WORKSPACE}/target/WebAppCal-0.0.6.war"
+                        def warFilePath = "${WORKSPACE}/target/*.war"
                         def tomcatWebappsDir = "/home/centos/apache-tomcat-7.0.94/webapps/"
 
                         // Check if the WAR file exists
@@ -58,5 +58,3 @@ pipeline {
         }
     }
 }
-
-

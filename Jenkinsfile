@@ -22,20 +22,21 @@ pipeline {
             }
         }
         stage('Deploy to Tomcat') {
-    agent {
-        label 'jenkins-slave2' // Label matching the Jenkins slave node for Tomcat deployment
-    }
-    steps {
-        sshagent(['jenkins-slave2']) {
-            // Move the WAR file to the Tomcat webapps directory
-            sh "scp -o StrictHostKeyChecking=no /home/centos/javaweb3/target/WebAppCal-0.0.6.war centos@172.31.14.74:/home/centos/apache-tomcat-7.0.94/webapps/"
+            agent {
+                label 'jenkins-slave2' // Label matching the Jenkins slave node for Tomcat deployment
+            }
+            steps {
+                sshagent(['jenkins-slave2']) {
+                    // Move the WAR file to the Tomcat webapps directory
+                    sh "scp -o StrictHostKeyChecking=no /home/centos/javaweb3/target/WebAppCal-0.0.6.war centos@172.31.14.74:/home/centos/apache-tomcat-7.0.94/webapps/"
 
-            // Restart Tomcat to deploy the application
-            sh 'ssh centos@172.31.14.74 /home/centos/apache-tomcat-7.0.94/bin/shutdown.sh || true' // Shutdown Tomcat, ignore errors if it's already stopped
-            sh 'ssh centos@172.31.14.74 /home/centos/apache-tomcat-7.0.94/bin/startup.sh' // Start Tomcat
+                    // Restart Tomcat to deploy the application
+                    sh 'ssh centos@172.31.14.74 /home/centos/apache-tomcat-7.0.94/bin/shutdown.sh || true' // Shutdown Tomcat, ignore errors if it's already stopped
+                    sh 'ssh centos@172.31.14.74 /home/centos/apache-tomcat-7.0.94/bin/startup.sh' // Start Tomcat
+                }
+            }
         }
-    }
-}
+    } // <-- Closing brace for the 'stages' section
 
     post {
         success {

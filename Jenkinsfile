@@ -22,8 +22,14 @@ pipeline {
             steps {
                 sshagent(['jenkins-slave2']) {
                     script {
+                        // Add a sleep command to wait for the WAR file to be generated
+                        sh 'sleep 30'
+
                         def warFilePath = "${WORKSPACE}/javaweb3/target/WebAppCal-0.0.6.war"
                         def tomcatWebappsDir = "/home/centos/apache-tomcat-7.0.94/webapps/"
+
+                        // Print the contents of the workspace directory
+                        sh "ls -l ${WORKSPACE}"
 
                         // Check if the WAR file exists
                         if (fileExists(warFilePath)) {

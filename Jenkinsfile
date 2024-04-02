@@ -28,7 +28,7 @@ pipeline {
             steps {
                 sshagent(['jenkins-slave2']) {
                     // Move the WAR file to the Tomcat webapps directory
-                    sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war centos@172.31.14.74:/home/centos/webapps/"
+                    sh "scp -o StrictHostKeyChecking=no /home/centos/javaweb3/target/WebAppCal-0.0.6.war centos@172.31.14.74:/home/centos/apache-tomcat-7.0.94/webapps/"
 
                     // Restart Tomcat to deploy the application
                     sh 'ssh user@172.31.14.74 /path/to/tomcat/bin/shutdown.sh || true' // Shutdown Tomcat, ignore errors if it's already stopped

@@ -25,7 +25,7 @@ pipeline {
                         // Add a sleep command to wait for the WAR file to be generated
                         sh 'sleep 30'
 
-                        def warFilePath = "${WORKSPACE}/javaweb3/target/WebAppCal-0.0.6.war"
+                        def warFilePath = "${WORKSPACE}/target/WebAppCal-0.0.6.war"
                         def tomcatWebappsDir = "/home/centos/apache-tomcat-7.0.94/webapps/"
 
                         // Print the contents of the workspace directory

@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Add appropriate error handling
-                    unstash 'jenkins CI-CD'
+                    unstash 'javaweb3'
                     sh "sudo rm -rf ~/apache*/webapp/*.war"
                     sh "sudo mv target/*.war ~/apache*/webapps/"
 

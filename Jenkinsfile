@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Add appropriate error handling
-                    unstash 'javaweb3'
+                    unstash 'ci-cdp'
                     sh "sudo rm -rf ~/apache*/webapp/*.war"
                     sh "sudo mv target/*.war ~/apache*/webapps/"
 

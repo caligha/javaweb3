@@ -11,6 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn clean package'
+                stash name: 'ci-cdp', includes: 'target/*.war'
             }
         }
         stage('Deploy to Tomcat') {
@@ -19,9 +20,8 @@ pipeline {
             }
             steps {
                 script {
-                    // Add appropriate error handling
                     unstash 'ci-cdp'
-                    sh "sudo rm -rf ~/apache*/webapp/*.war"
+                    sh "sudo rm -rf ~/apache*/webapps/*.war"
                     sh "sudo mv target/*.war ~/apache*/webapps/"
 
                     // Restart Tomcat
@@ -41,5 +41,4 @@ pipeline {
         }
     }
 }
-
 

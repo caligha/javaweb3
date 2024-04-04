@@ -3,7 +3,7 @@
 User
 pipeline {
     agent {
-        label 'jenkins-slave1'
+        label 'jenkins-node1'
     }
     stages {
         stage('Checkout') {
@@ -14,16 +14,16 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn clean package'
-                stash name: 'ci-cdp', includes: 'target/*.war'
+                stash name: 'jenkins-pipeline', includes: 'target/*.war'
             }
         }
         stage('Deploy to Tomcat') {
             agent {
-                label 'jenkins-slave2'
+                label 'jenkins-node2'
             }
             steps {
                 script {
-                    unstash 'ci-cdp'
+                    unstash 'jenkins-pipeline'
                     sh "sudo rm -rf ~/apache*/webapps/*.war"
                     sh "sudo mv target/*.war ~/apache*/webapps/"
 

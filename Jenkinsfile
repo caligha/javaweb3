@@ -31,6 +31,11 @@ pipeline {
             }
         }
     }
+    stage('Email Notification'){
+        mail bcc: '', body: '''Congratulations team!!! The pipeline has completed successfully.
+
+         Thanks
+         Jenkins''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'devopsmail24@gmail.com'}
     post {
         always {
             echo 'Congratulations! The pipeline has completed successfully.'

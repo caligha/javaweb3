@@ -48,13 +48,6 @@ pipeline {
                 to: "devopsmail24@gmail.com"
             )
         }
-        failure {
-            emailext (
-                subject: "Jenkins Job: Failure",
-                body: "The pipeline has failed.",
-                to: "devopsmail24@gmail.com"
-            )
-        }
     }
 }
 

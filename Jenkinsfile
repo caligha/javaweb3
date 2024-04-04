@@ -1,3 +1,6 @@
+
+
+User
 pipeline {
     agent {
         label 'jenkins-slave1'
@@ -21,7 +24,7 @@ pipeline {
             steps {
                 script {
                     unstash 'ci-cdp'
-                    sh "sudo rm -rf ~/apache*/weapps/*.war"
+                    sh "sudo rm -rf ~/apache*/webapps/*.war"
                     sh "sudo mv target/*.war ~/apache*/webapps/"
 
                     // Restart Tomcat
@@ -31,17 +34,13 @@ pipeline {
             }
         }
     }
-        post {
-    always {
-        echo 'Congratulations! The pipeline has completed successfully.'
-    }
-    failure {
-        echo 'Pipeline failed!'
-        // Add additional actions for failure handling if needed
-    }
-    success {
-        mail to: 'devopsmail24@gmail.com',
-             subject: 'Jenkins Job: Success',
-             body: 'Congratulations team!!! The pipeline has completed successfully.\n\nThanks\nJenkins'
+    post {
+        always {
+            echo 'Congratulations! The pipeline has completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed!'
+            // Add additional actions for failure handling if needed
+        }
     }
 }

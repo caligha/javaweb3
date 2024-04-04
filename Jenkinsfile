@@ -21,21 +21,18 @@ pipeline {
             steps {
                 script {
                     unstash 'ci-cdp'
-                    sh "sudo rm -rf ~/apache*/webapps/*.war"
-                    sh "sudo mv target/*.war ~/apache*/webapps/"
+                    def tomcatDir = "~/apache-tomcat-9.0.44" // Change to the appropriate Tomcat directory
+                    def webappsDir = "${tomcatDir}/webapps"
+                    sh "sudo rm -rf ${webappsDir}/*.war"
+                    sh "sudo mv target/*.war ${webappsDir}/"
 
                     // Restart Tomcat
-                    sh "sudo ~/apache-tomcat-7.0.94/bin/catalina.sh stop"
-                    sh "sudo ~/apache-tomcat-7.0.94/bin/catalina.sh start"
+                    sh "sudo ${tomcatDir}/bin/catalina.sh stop"
+                    sh "sudo ${tomcatDir}/bin/catalina.sh start"
                 }
             }
         }
     }
-    stage('Email Notification'){
-        mail bcc: '', body: '''Congratulations team!!! The pipeline has completed successfully.
-
-         Thanks
-         Jenkins''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'devopsmail24@gmail.com'}
     post {
         always {
             echo 'Congratulations! The pipeline has completed successfully.'
@@ -43,6 +40,22 @@ pipeline {
         failure {
             echo 'Pipeline failed!'
             // Add additional actions for failure handling if needed
+        }
+    }
+    post {
+        success {
+            emailext (
+                subject: "Jenkins Job: Success",
+                body: "Congratulations team!!! The pipeline has completed successfully.\n\nThanks\nJenkins",
+                to: "devopsmail24@gmail.com"
+            )
+        }
+        failure {
+            emailext (
+                subject: "Jenkins Job: Failure",
+                body: "The pipeline has failed.",
+                to: "devopsmail24@gmail.com"
+            )
         }
     }
 }

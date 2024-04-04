@@ -41,8 +41,6 @@ pipeline {
             echo 'Pipeline failed!'
             // Add additional actions for failure handling if needed
         }
-    }
-    post {
         success {
             emailext (
                 subject: "Jenkins Job: Success",
@@ -59,3 +57,4 @@ pipeline {
         }
     }
 }
+

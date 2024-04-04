@@ -31,7 +31,7 @@ pipeline {
             }
         }
     }
-    post {
+        post {
     always {
         echo 'Congratulations! The pipeline has completed successfully.'
     }
@@ -45,4 +45,3 @@ pipeline {
              body: 'Congratulations team!!! The pipeline has completed successfully.\n\nThanks\nJenkins'
     }
 }
-

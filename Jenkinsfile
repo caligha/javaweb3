@@ -32,20 +32,16 @@ pipeline {
         }
     }
     post {
-        always {
-            echo 'Congratulations! The pipeline has completed successfully.'
-        }
-        failure {
-            echo 'Pipeline failed!'
-            // Add additional actions for failure handling if needed
-        }
-        success {
-            emailext (
-                subject: "Jenkins Job: Success",
-                body: "Congratulations team!!! The pipeline has completed successfully.\n\nThanks\nJenkins",
-                to: "devopsmail24@gmail.com"
-            )
-        }
+    always {
+        echo 'Congratulations! The pipeline has completed successfully.'
+    }
+    failure {
+        echo 'Pipeline failed!'
+        // Add additional actions for failure handling if needed
+    }
+    success {
+        mail to: 'devopsmail24@gmail.com',
+             subject: 'Jenkins Job: Success',
+             body: 'Congratulations team!!! The pipeline has completed successfully.\n\nThanks\nJenkins'
     }
 }
-

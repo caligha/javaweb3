@@ -21,14 +21,12 @@ pipeline {
             steps {
                 script {
                     unstash 'ci-cdp'
-                    def tomcatDir = "~/apache-tomcat-9.0.44" // Change to the appropriate Tomcat directory
-                    def webappsDir = "${tomcatDir}/webapps"
-                    sh "sudo rm -rf ${webappsDir}/*.war"
-                    sh "sudo mv target/*.war ${webappsDir}/"
+                    sh "sudo rm -rf ~/apache*/weapps/*.war"
+                    sh "sudo mv target/*.war ~/apache*/webapps/"
 
                     // Restart Tomcat
-                    sh "sudo ${tomcatDir}/bin/catalina.sh stop"
-                    sh "sudo ${tomcatDir}/bin/catalina.sh start"
+                    sh "sudo ~/apache-tomcat-7.0.94/bin/catalina.sh stop"
+                    sh "sudo ~/apache-tomcat-7.0.94/bin/catalina.sh start"
                 }
             }
         }
